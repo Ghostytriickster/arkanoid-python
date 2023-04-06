@@ -18,7 +18,7 @@ window.fill(white)
 
 x = 250
 y = 380
-vel = 2
+vel = 0.5
 width = 100
 height = 20
 r=pygame.Rect(x, y, width, height)
@@ -27,18 +27,11 @@ x_ball = 290
 y_ball = 190
 rayon = 20
 pygame.draw.ellipse(window, red, (x_ball,y_ball, rayon, rayon))
-vx = .2
+vx = .05
 vy = .1
-def collision(fig_1, fig_2):
-    if fig_2.right < fig_1.left:
-        return False
-    if fig_2.bottom < fig_1.top:
-        return False
-    if fig_2.left > fig_1.right:
-        return False
-    if fig_2.top > fig_1.bottom:
-        return False
-    return True
+police = pygame.font.SysFont("monospace", 30)
+game_over = False
+cpt = 0
     
 
 pygame.display.update()
@@ -57,22 +50,43 @@ while lock: # boucle pour maintenir la fenêtre ouverte
     if keys[pygame.K_RIGHT] and x<500:
         x += vel
     if y_ball <= 20:
-        print("plafond")
-        vy = -vy
+        vy = -vy * 1.05
         vx *= (0.75+0.5*random())
     if y_ball >= 380:
-        vy = -vy
+        vy = 0
+        vx = 0
+        vel = 0
+        game_over = True
     if x_ball <= 0 or x_ball >= 580:
-        vx = -vx
+        vx = -vx * 1.05
+    if y_ball >= 360 and x_ball > x and x_ball < x + 100:
+        vy = -vy * 1.05
+        vx *= (0.75+0.5*random())
+        cpt += 1
+        
+        window.blit(image_texte, (10, 10))
+        
         
     y_ball = y_ball + vy
     x_ball = x_ball + vx
-    window.fill(white)
-    pygame.draw.rect(window, (black), (x, y, width, height))
-    pygame.draw.ellipse(window, red, (int(x_ball), int(y_ball), 20, 20))
-    pygame.display.update()
+    if not game_over:
+        window.fill(white)
+        pygame.draw.rect(window, (black), (x, y, width, height))
+        pygame.draw.ellipse(window, red, (int(x_ball), int(y_ball), 20, 20))
+        image_texte = police.render (str(cpt), 1, (0, 0, 0))
+        window.blit(image_texte, (10, 10))
+        pygame.display.update()
+    if game_over:
+        window.fill(white)
+        police = pygame.font.SysFont("monospace", 50)
+        image_texte = police.render ("GAME OVER", 1, (255, 0, 0))
+        window.blit(image_texte, (170, 175))
+        police = pygame.font.SysFont("monospace", 30)
+        image_texte = police.render ("You touched your ball "+ str(cpt) + " time(s)" , 1, (255, 0, 0))
+        window.blit(image_texte, (20, 225))
+        pygame.display.update()
+
             
 
-
-                
+           
 pygame.quit()
