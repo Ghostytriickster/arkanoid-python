@@ -38,6 +38,28 @@ pygame.display.update()
 
 lock = True
 
+def not_game_over(cpt, x_ball, y_ball, x, y, height, width, window):
+    window.fill(white)
+    pygame.draw.rect(window, (black), (x, y, width, height))
+    pygame.draw.ellipse(window, red, (int(x_ball), int(y_ball), 20, 20))
+    image_texte = police.render(str(cpt), 1, (0, 0, 0))
+    window.blit(police.render(str(cpt), 1, (0, 0, 0)), (10, 10))
+    pygame.display.update()
+    return image_texte
+
+def is_game_over(x, y, cpt, window):
+    window.fill(white)
+    police = pygame.font.SysFont("monospace", 50)
+    image_texte = police.render ("GAME OVER", 1, (255, 0, 0))
+    window.blit(image_texte, (170, 175))
+    police = pygame.font.SysFont("monospace", 30)
+    image_texte = police.render ("You touched your ball "+ str(cpt) + " time(s)" , 1, (255, 0, 0))
+    window.blit(image_texte, (20, 225))
+    x = 2000
+    y = 2000
+    pygame.display.update()
+    return x, y, image_texte
+
 
 while lock: # boucle pour maintenir la fenêtre ouverte
     
@@ -63,28 +85,13 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         vy = -vy * 1.05
         vx *= (0.75+0.5*random())
         cpt += 1
-        
         window.blit(image_texte, (10, 10))
-        
-        
     y_ball = y_ball + vy
     x_ball = x_ball + vx
     if not game_over:
-        window.fill(white)
-        pygame.draw.rect(window, (black), (x, y, width, height))
-        pygame.draw.ellipse(window, red, (int(x_ball), int(y_ball), 20, 20))
-        image_texte = police.render (str(cpt), 1, (0, 0, 0))
-        window.blit(image_texte, (10, 10))
-        pygame.display.update()
+        image_texte = not_game_over(cpt, x_ball, y_ball, x, y, height, width, window)
     if game_over:
-        window.fill(white)
-        police = pygame.font.SysFont("monospace", 50)
-        image_texte = police.render ("GAME OVER", 1, (255, 0, 0))
-        window.blit(image_texte, (170, 175))
-        police = pygame.font.SysFont("monospace", 30)
-        image_texte = police.render ("You touched your ball "+ str(cpt) + " time(s)" , 1, (255, 0, 0))
-        window.blit(image_texte, (20, 225))
-        pygame.display.update()
+        x, y, image_texte = is_game_over(x, y, cpt, window)
 
             
 
