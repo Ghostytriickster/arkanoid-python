@@ -12,7 +12,9 @@ green = (0, 255, 0)
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-size = (960, 640)
+width_window, height_window = 960, 640
+
+size = (width_window, height_window)
 window = pygame.display.set_mode(size)
 window.fill(white)
 
@@ -21,8 +23,8 @@ x_barre, y_barre = (960/2) - (width/2), 640 - height
 vel = 0.6 # La vitesse de la barre
 r=pygame.Rect(x_barre, y_barre, width, height)
 pygame.draw.rect(window, black, r)
-x_ball = 290
-y_ball = 190
+x_ball = 464
+y_ball = 288
 rayon = 20
 pygame.draw.ellipse(window, red, (x_ball,y_ball, rayon, rayon))
 vx, vy = random() * 0.6 - 0.3, .3
@@ -69,24 +71,24 @@ while lock: # boucle pour maintenir la fenêtre ouverte
     if keys[pygame.K_LEFT] and x_barre>0:
         x_barre -= vel
         
-    if keys[pygame.K_RIGHT] and x_barre<960-width:
+    if keys[pygame.K_RIGHT] and x_barre<width_window -width:
         x_barre += vel
         
     if y_ball <= 20:
         vy = -vy * 1.05
         vx *= (0.75+0.5*random())
         
-    if y_ball >= 620:
+    if y_ball >= height_window - width_ball:
         vy = 0
         vx = 0
         vel = 0
         game_over = True
         
         
-    if x_ball <= 0 or x_ball >= 960 - width_ball:
+    if x_ball <= 0 or x_ball >= width_window - width_ball:
         vx = -vx * 1.05
         
-    if y_ball >= 608 - height and x_ball > x_barre and x_ball < x_barre + width:
+    if y_ball >= height_window - width_ball - height and x_ball > x_barre and x_ball < x_barre + width:
         vy = -vy * 1.05
         vx *= (0.75+0.5*random())
         cpt += 1
