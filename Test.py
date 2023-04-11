@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from random import *
+from math import *
 
 pygame.init()
 clock = pygame.time.Clock() # Horloge
@@ -11,31 +12,28 @@ green = (0, 255, 0)
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-size = (600, 400)
+size = (960, 640)
 window = pygame.display.set_mode(size)
 window.fill(white)
 
-
-x_barre, y_barre = 250, 380
-vel = 0.3 # La vitesse de la barre
-width, height = 100, 20
+width, height = 160, 32
+x_barre, y_barre = (960/2) - (width/2), 640 - height
+vel = 0.6 # La vitesse de la barre
 r=pygame.Rect(x_barre, y_barre, width, height)
 pygame.draw.rect(window, black, r)
 x_ball = 290
 y_ball = 190
 rayon = 20
 pygame.draw.ellipse(window, red, (x_ball,y_ball, rayon, rayon))
-vx = random() * 0.2 - 0.1
-vy = .1
+vx, vy = random() * 0.6 - 0.3, .3
 police = pygame.font.SysFont("monospace", 30)
 game_over = False
 cpt = 0
-width_ball, height_ball = 20, 20
+width_ball, height_ball = 32, 32
     
 
 pygame.display.update()
 
-lock = True
 
 def not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window):
     window.fill(white)
@@ -48,17 +46,18 @@ def not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window):
 
 def is_game_over(x_barre, y_barre, cpt, window):
     window.fill(white)
-    police = pygame.font.SysFont("monospace", 50)
+    police = pygame.font.SysFont("monospace", 80)
     image_texte = police.render ("GAME OVER", 1, (255, 0, 0))
-    window.blit(image_texte, (170, 175))
-    police = pygame.font.SysFont("monospace", 30)
+    window.blit(image_texte, (272, 260))
+    police = pygame.font.SysFont("monospace", 48)
     image_texte = police.render ("You touched your ball "+ str(cpt) + " time(s)" , 1, (255, 0, 0))
-    window.blit(image_texte, (20, 225))
+    window.blit(image_texte, (32, 335))
     x_barre = 2000
     y_barre = 2000
     pygame.display.update()
     return x_barre, y_barre, image_texte
 
+lock = True
 
 while lock: # boucle pour maintenir la fenêtre ouverte
     
@@ -70,23 +69,24 @@ while lock: # boucle pour maintenir la fenêtre ouverte
     if keys[pygame.K_LEFT] and x_barre>0:
         x_barre -= vel
         
-    if keys[pygame.K_RIGHT] and x_barre<500:
+    if keys[pygame.K_RIGHT] and x_barre<960-width:
         x_barre += vel
         
     if y_ball <= 20:
         vy = -vy * 1.05
         vx *= (0.75+0.5*random())
         
-    if y_ball >= 380:
+    if y_ball >= 620:
         vy = 0
         vx = 0
         vel = 0
         game_over = True
         
-    if x_ball <= 0 or x_ball >= 580:
+        
+    if x_ball <= 0 or x_ball >= 960 - width_ball:
         vx = -vx * 1.05
         
-    if y_ball >= 360 and x_ball > x_barre and x_ball < x_barre + 100:
+    if y_ball >= 608 - height and x_ball > x_barre and x_ball < x_barre + width:
         vy = -vy * 1.05
         vx *= (0.75+0.5*random())
         cpt += 1
