@@ -76,7 +76,7 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         
     if y_ball <= height_ball: # Si la balle touche le plafond
         vy = -vy * 1.05 # la balle va s'inverser, elle change de sens.
-        vx *= (0.75+0.5*random()) # Pour plus de fun avec les rebonds
+        vx += random() * 0.5 - 0.25 # Pour plus de fun avec les rebonds
         
     if y_ball >= height_window - width_ball: # Si la balle touche le bas de l'écran sans toucher la barre
         vy = 0
@@ -89,8 +89,8 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         vx = -vx * 1.05
         
     if y_ball >= height_window - (width_ball + height) and x_ball > x_barre and x_ball < x_barre + width:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
-        vx *= (0.75+0.5*random())
-        vy = -vy
+        vx += random() * 0.5 - 0.25
+        vy = -vy * 1.05
         cpt += 1
         window.blit(image_texte, (10, 10))
         
