@@ -74,7 +74,7 @@ while lock: # boucle pour maintenir la fenêtre ouverte
     if keys[pygame.K_RIGHT] and x_barre<width_window -width: # Meme chose pour la fleche de droite
         x_barre += vel
         
-    if y_ball <= 32: # Si la balle touche le plafond
+    if y_ball <= height_ball: # Si la balle touche le plafond
         vy = -vy * 1.05 # la balle va s'inverser, elle change de sens.
         vx *= (0.75+0.5*random()) # Pour plus de fun avec les rebonds
         
@@ -85,11 +85,12 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         game_over = True # Pour lancer la fonction is_game_over
         
         
-    if x_ball <= 0 or x_ball >= width_window - width_ball: ## Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka, je ne suis plus sur de cette partie par contre
+    if x_ball <= 0 or x_ball >= width_window - width_ball: # detecte les colisions sur la gauche ou droite de l'écran.
         vx = -vx * 1.05
         
-    if y_ball >= height_window - width_ball - height and x_ball > x_barre and x_ball < x_barre + width:  
+    if y_ball >= height_window - (width_ball + height) and x_ball > x_barre and x_ball < x_barre + width:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
         vx *= (0.75+0.5*random())
+        vy = -vy
         cpt += 1
         window.blit(image_texte, (10, 10))
         
