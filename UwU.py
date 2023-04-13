@@ -39,6 +39,7 @@ pygame.display.update()
 
 def not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window): #Si le joue est toujours en cours
     window.fill(white) # Pour empecher que les sprites d'avant restent
+    pygame.draw.rect(window,(red), (430, 0, 100, 20))
     pygame.draw.rect(window, (black), (x_barre, y_barre, width, height)) # Redessine la barre avec ces nouvelles coordonnées
     pygame.draw.ellipse(window, red, (int(x_ball), int(y_ball), width_ball, height_ball)) # Meme chose sur le cercle
     image_texte = police.render(str(cpt), 1, (0, 0, 0)) # Affiche un le nombre de rebond sur la barre
@@ -75,8 +76,9 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         x_barre += vel
         
     if y_ball <= height_ball: # Si la balle touche le plafond
-        vy = -vy * 1.05 # la balle va s'inverser, elle change de sens.
-        vx += random() * 0.5 - 0.25 # Pour plus de fun avec les rebonds
+        C = (vx ** 2) + (vy ** 2)
+        vy = -vy * 1.08 # la balle va s'inverser, elle change de sens.
+        vx += random() * vx - vx / 2 # Pour plus de fun avec les rebonds
         
     if y_ball >= height_window - width_ball: # Si la balle touche le bas de l'écran sans toucher la barre
         vy = 0
@@ -86,11 +88,13 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         
         
     if x_ball <= 0 or x_ball >= width_window - width_ball: # detecte les colisions sur la gauche ou droite de l'écran.
-        vx = -vx * 1.05
+        vx = -vx * 1.08
+
         
     if y_ball >= height_window - (width_ball + height) and x_ball > x_barre and x_ball < x_barre + width:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
-        vx += random() * 0.5 - 0.25
-        vy = -vy * 1.05
+        C = (vx ** 2) + (vy ** 2)
+        vx += random() * vx - vx / 2
+        vy = - vy
         cpt += 1
         window.blit(image_texte, (10, 10))
         
