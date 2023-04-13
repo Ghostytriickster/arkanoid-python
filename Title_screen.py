@@ -1,8 +1,7 @@
 import pygame
 from pygame.locals import *
 
-# en attente de finition 
-# bouton fonctionel
+# en attente de finnision
 
 WHITE = (255,255,255)
 GREEN = (0,255,0)
@@ -13,8 +12,14 @@ screen = pygame.display.set_mode(SIZE)
 screen.fill(WHITE)
 lock = True
 
-input_rect = pygame.Rect(200, 200, 140, 32)
-pygame.draw.rect(screen,GREEN,input_rect)
+start_buttoon_hitbox = pygame.Rect(200, 200, 140, 32)
+
+# create a surface object, image is drawn on it.
+imp = pygame.image.load("U:\\Documents\\NSI_ex\\TerminalNSI\\poggers.png").convert()
+screen.blit(imp, (0, 0))
+pygame.display.flip()
+
+#pygame.draw.rect(screen,GREEN,start_buttoon_hitbox)
 
 while lock :
     for event in pygame.event.get() :
@@ -23,25 +28,16 @@ while lock :
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-            if input_rect.collidepoint(mouse_pos):
+            print(mouse_pos)
+            x,y = mouse_pos
+            pygame.draw.rect(screen,GREEN,(x,y,100,40))
+            
+            if start_buttoon_hitbox.collidepoint(mouse_pos):
                 pass
-                pygame.draw.rect(screen, LACK, input_rect)
+                pygame.draw.rect(screen, LACK, start_buttoon_hitbox)
                 
             else:
                 active = False
     pygame.display.update()
   
-pygame.quit()
-
-
-
-
-
-
-
-
-
-
-
-
 pygame.quit()
