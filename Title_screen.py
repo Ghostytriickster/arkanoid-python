@@ -12,11 +12,11 @@ screen = pygame.display.set_mode(SIZE)
 screen.fill(WHITE)
 lock = True
 
-start_buttoon_hitbox = pygame.Rect(200, 200, 140, 32)
+start_buttoon_hitbox = pygame.Rect(200, 75, 200, 50)
 
-# create a surface object, image is drawn on it.
-imp = pygame.image.load("U:\\Documents\\NSI_ex\\TerminalNSI\\poggers.png").convert()
-screen.blit(imp, (0, 0))
+#create a surface object, image is drawn on it.
+imp = pygame.image.load("U:\\Documents\\NSI_ex\\TerminalNSI\\startbutton.png").convert()
+screen.blit(imp, (200, 75))
 pygame.display.flip()
 
 #pygame.draw.rect(screen,GREEN,start_buttoon_hitbox)
@@ -30,7 +30,7 @@ while lock :
             mouse_pos = pygame.mouse.get_pos()
             print(mouse_pos)
             x,y = mouse_pos
-            pygame.draw.rect(screen,GREEN,(x,y,100,40))
+            #pygame.draw.rect(screen,GREEN,(x,y,100,40))
             
             if start_buttoon_hitbox.collidepoint(mouse_pos):
                 pass
