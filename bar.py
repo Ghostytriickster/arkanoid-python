@@ -1,1 +1,0 @@
-# classe de la barre 
