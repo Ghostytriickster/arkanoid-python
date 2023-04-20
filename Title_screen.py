@@ -23,6 +23,8 @@ class objet_png_avec_une_hitbox():
         self.image_pos = screen.blit(self.image_surface, (self.coordonne)) # position de l'image 
         
         self.hitbox = pygame.Rect( (self.coordonne), (self.image_surface.get_width(), self.image_surface.get_height())) # objet du type Rect
+                  #self.image_surface.get_rect() : à regarder 
+         
         # pygame.display.flip() pour aficher l'image
         
     def is_cliked(self):
