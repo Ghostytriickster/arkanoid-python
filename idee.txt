@@ -1,0 +1,1 @@
+On peut créer un unlock après que le joueur aie atteind un certain high score : (effet visuel sur l'ecrant de titre par exemple)
