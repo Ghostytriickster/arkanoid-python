@@ -51,8 +51,6 @@ textpos_high_score = text.get_rect(x = 336,y = 250)
     # current_score = high_score
     
 text_high_score = font.render("high_score", True, (10,10,10))
-    
-
 screen.blit(text, textpos)
 screen.blit(text_high_score, textpos_high_score)
 #start_buttoon_hitbox = 
