@@ -18,6 +18,50 @@ size = (width_window, height_window)
 window = pygame.display.set_mode(size)
 window.fill(white)
 
+class objet_png_avec_une_hitbox():
+    
+    def __init__(self,image_name,coordonne):
+        
+        self.image_surface = pygame.image.load(image_name).convert() # objet du type surface avec l'image du png
+        
+        self.coordonne = (coordonne[0], coordonne[1]) #les coord x et y pour l'hitbox et l'image(l'objet surface)
+        
+        self.image_pos = screen.blit(self.image_surface, (self.coordonne)) # position de l'image 
+        
+        self.hitbox = pygame.Rect( (self.coordonne), (self.image_surface.get_width(), self.image_surface.get_height())) # objet du type Rect
+        #self.image_surface.get_rect() : à regarder 
+        
+        # pygame.display.flip() pour aficher l'image
+        
+    def is_cliked(self):
+        mouse_pos = pygame.mouse.get_pos()
+        x,y = mouse_pos
+        if self.hitbox.collidepoint(mouse_pos):
+            return True
+        return False
+    
+def title_screen_display():
+    window.fill(white) # Pour empecher que les sprites d'avant restent
+    
+    start_button = objet_png_avec_une_hitbox("startbutton.png",(200,75)) # button
+    pygame.display.flip()
+
+    pygame.font.init()
+    font = pygame.font.Font(None, 34)
+    text = font.render("high score", True, ('lightskyblue3'))
+    textpos = text.get_rect(x = 210,y = 250)
+    textpos_high_score = text.get_rect(x = 336,y = 250)
+
+    #if high_score < current_score :
+        # f.open("filename.txt","w")
+        # ecrire sur le fichier le nouveau high score 
+        # current_score = high_score
+        
+    text_high_score = font.render("high_score", True, (10,10,10))
+    screen.blit(text, textpos)
+    screen.blit(text_high_score, textpos_high_score)
+    pygame.display.flip()
+
 width, height = 160, 32 
 x_barre, y_barre = (960/2) - (width/2), 640 - height
 vel = 0.6 # La vitesse de la barre
@@ -38,6 +82,8 @@ cpt_acc = 0
 
 pygame.display.update()
 
+
+    
 
 def not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window): #Si le joue est toujours en cours
     window.fill(white) # Pour empecher que les sprites d'avant restent
@@ -78,8 +124,17 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         x_barre += vel
     if keys[pygame.K_SPACE]:
         play = True
+        
     
     if play == True:
+        window.fill(white) # Pour empecher que les sprites d'avant restent
+        
+        pygame.draw.rect(window, (black), (x_barre, y_barre, width, height)) # Redessine la barre avec ces nouvelles coordonnées
+        pygame.draw.ellipse(window, red, (int(x_ball), int(y_ball), width_ball, height_ball)) # Meme chose sur le cercle
+        image_texte = police.render(str(cpt), 1, (0, 0, 0)) # Affiche un le nombre de rebond sur la barre
+        window.blit(police.render(str(cpt), 1, (0, 0, 0)), (10, 10))
+        pygame.display.update()
+        
         game_over = False
         if y_ball <= height_ball: # Si la balle touche le plafond
             C = (vx ** 2) + (vy ** 2)
@@ -120,14 +175,19 @@ while lock: # boucle pour maintenir la fenêtre ouverte
             image_texte = not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window)
         
         if game_over:
-            x_barre, y_barre, image_texte = is_game_over(x_barre, y_barre, cpt, window)
+            window.fill(white)
+            police = pygame.font.SysFont("monospace", 80)
+            image_texte = police.render ("GAME OVER", 1, (255, 0, 0))
+            window.blit(image_texte, (272, 260))
+            police = pygame.font.SysFont("monospace", 48)
+            image_texte = police.render ("You touched your ball "+ str(cpt) + " time(s)" , 1, (255, 0, 0))
+            window.blit(image_texte, (32, 335))
+            x_barre = 2000
+            y_barre = 2000
+            pygame.display.update()
         if keys[pygame.K_r] and cpt != 0:
             print("Restart") 
             game_over == False
         
-        
-
-            
-
-           
 pygame.quit()
+
