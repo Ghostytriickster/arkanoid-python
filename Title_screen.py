@@ -23,8 +23,8 @@ class objet_png_avec_une_hitbox():
         self.image_pos = screen.blit(self.image_surface, (self.coordonne)) # position de l'image 
         
         self.hitbox = pygame.Rect( (self.coordonne), (self.image_surface.get_width(), self.image_surface.get_height())) # objet du type Rect
-                  #self.image_surface.get_rect() : à regarder 
-         
+        #self.image_surface.get_rect() : à regarder 
+        
         # pygame.display.flip() pour aficher l'image
         
     def is_cliked(self):
@@ -33,9 +33,28 @@ class objet_png_avec_une_hitbox():
         if self.hitbox.collidepoint(mouse_pos):
             return True
         return False
-    
+# f = open("demofile.txt", "r")
+
+# highscore = # lire le high scor sur le fichier 
+
 start_button = objet_png_avec_une_hitbox("startbutton.png",(200,75))
 
+pygame.font.init()
+font = pygame.font.Font(None, 34)
+text = font.render("high score", True, ('lightskyblue3'))
+textpos = text.get_rect(x = 210,y = 250)
+textpos_high_score = text.get_rect(x = 336,y = 250)
+
+#if high_score < current_score :
+    # f.open("filename.txt","w")
+    # ecrire sur le fichier le nouveau high score 
+    # current_score = high_score
+    
+text_high_score = font.render("high_score", True, (10,10,10))
+    
+
+screen.blit(text, textpos)
+screen.blit(text_high_score, textpos_high_score)
 #start_buttoon_hitbox = 
 
 #create a surface object, image is drawn on it.
@@ -56,7 +75,6 @@ while lock :
             mouse_pos = pygame.mouse.get_pos()
             print(mouse_pos)
             if start_button.is_cliked():
-                
                 
                 # METTRE CODE DU JEU ICI
                 
