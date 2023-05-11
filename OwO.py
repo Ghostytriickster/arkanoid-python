@@ -12,7 +12,7 @@ green = (0, 255, 0)
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-width_window, height_window = 960, 640
+width_window, height_window = 960, 640    
 
 size = (width_window, height_window)
 window = pygame.display.set_mode(size)
@@ -98,7 +98,13 @@ while lock: # boucle pour maintenir la fenêtre ouverte
             
         
         if y_ball >= height_window - (width_ball + height) and x_ball > (x_barre - width_ball + 3) and x_ball < x_barre + width - 3:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
-            
+            gauche, droite = (x_barre - width_ball + 3), (x_barre + width - 3)
+            largeur = gauche + droite
+            degre = width_window - (width_window - x_barre)
+            print(degre) 
+            degre_balle = x_ball
+            degre = largeur / y_ball -1
+            vx = degre
             vy = - vy
             cpt += 1
             window.blit(image_texte, (10, 10))
