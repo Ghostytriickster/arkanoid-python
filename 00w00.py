@@ -5,7 +5,7 @@ from math import *
 
 pygame.init()
 clock = pygame.time.Clock() # Horloge
-
+#-----------classe puis fonction ------------------------------------------
 class objet_png_avec_une_hitbox():
     
     def __init__(self,image_name,coordonne):
@@ -51,13 +51,12 @@ def is_game_over(x_barre, y_barre, cpt, window): # Si game over
     pygame.display.update()
     return x_barre, y_barre, image_texte
 
-
+# -------------------variable-------------------------------------------------
 red = (255, 0, 0)
 blue = (0, 0, 255)
 green = (0, 255, 0)
 black = (0, 0, 0)
 white = (255, 255, 255)
-
 width_window, height_window = 960, 640
 size = (width_window, height_window)
 window = pygame.display.set_mode(size)
@@ -89,7 +88,7 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         
     if keys[pygame.K_RIGHT] and x_barre<width_window -width: # Meme chose pour la fleche de droite
         x_barre += vel
-    # ---------------- TITLE SCREEN ----------------- 
+    # ---------------- TITLE SCREEN -------------------------------------------------------
     window.fill(white) # Pour empecher que les sprites d'avant restent*
     start_button = objet_png_avec_une_hitbox("startbutton.png",(200,75)) # button
     pygame.display.flip()
@@ -108,7 +107,7 @@ while lock: # boucle pour maintenir la fenêtre ouverte
     window.blit(text, textpos)
     window.blit(text_high_score, textpos_high_score)
     pygame.display.flip()
-    
+    # ------------ DEBUT DU JEU ------------------------------------------------------------
     if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             print(mouse_pos)
