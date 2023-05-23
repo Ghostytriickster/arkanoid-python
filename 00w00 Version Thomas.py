@@ -71,7 +71,7 @@ x_ball = 464
 y_ball = 288
 rayon = 20
 pygame.draw.ellipse(window, red, (x_ball,y_ball, rayon, rayon))
-vx, vy = random() * 0.6 - 0.3, .3
+vx, vy = random() * 0.6 - 0.3, .5
 police = pygame.font.SysFont("monospace", 30)
 game_over = False
 cpt = 0
@@ -182,18 +182,14 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         
             x_barre = 2000
             y_barre = 2000
+            police = pygame.font.SysFont("monospace", 80)
+            image_texte = police.render("GAME OVER", 1, (255, 0, 0))
+            window.blit(image_texte, (272, 260))
+            police = pygame.font.SysFont("monospace", 48)
+            window.blit(image_texte, (32, 335))
+            image_texte = police.render("Score "+ str(cpt) , 1, (255, 0, 0))
             pygame.display.update()
-            if cpt_game_over == 0:
-                window.fill(white)
-                cpt_game_over = 1
-                x_ball, y_ball = 1000, 0
-                police = pygame.font.SysFont("monospace", 80)
-                image_texte = police.render("GAME OVER", 1, (255, 0, 0))
-                window.blit(image_texte, (272, 260))
-                police = pygame.font.SysFont("monospace", 48)
-                window.blit(image_texte, (32, 335))
-                image_texte = police.render("You touched your ball "+ str(cpt) + " time(s)" , 1, (255, 0, 0))
-                pygame.display.update()
+            
                 
         if keys[pygame.K_r]:
             game_over == False
