@@ -32,6 +32,7 @@ class objet_png_avec_une_hitbox():
         return False
     
 def title_screen(current_score) :
+    
         window.fill(white) # Pour empecher que les sprites d'avant restent*
         start_button = objet_png_avec_une_hitbox("startbutton.png",(200,75)) # button
         pygame.display.flip()
@@ -41,9 +42,9 @@ def title_screen(current_score) :
         textpos = text.get_rect(x = 210,y = 250)
         textpos_high_score = text.get_rect(x = 336,y = 250)
         
-        save = open("save.txt","w") # ouvre le fichier 
+        save = open("save.txt","w")
         saved_high_score = int(save.read()) # lit le fichier
-        if saved_high_score < current_score : # RECUPERER LE SCORE DE LA PARTIE 
+        if saved_high_score < current_score : # Variable passé dans la fonction
             str(current_score) 
             save.write(current_score)
         save.close()
