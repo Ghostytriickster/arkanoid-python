@@ -5,6 +5,7 @@ from math import *
 
 pygame.init()
 clock = pygame.time.Clock() # Horloge
+
 save = open("save.txt","w")
 save.write("0")
 save.close()
@@ -32,19 +33,20 @@ class objet_png_avec_une_hitbox():
         return False
     
 def title_screen(current_score) :
-    
+        save = open("save.txt","w") # ouvre le fichier 
+        saved_high_score = save.read() # lit le fichier
+        
         window.fill(white) # Pour empecher que les sprites d'avant restent*
         start_button = objet_png_avec_une_hitbox("startbutton.png",(200,75)) # button
         pygame.display.flip()
         pygame.font.init()
         font = pygame.font.Font(None, 34)
-        text = font.render("high score", True, ('lightskyblue3'))
+        text = font.render("highscore "+saved_high_score, True, ('lightskyblue3'))
         textpos = text.get_rect(x = 210,y = 250)
         textpos_high_score = text.get_rect(x = 336,y = 250)
         
-        save = open("save.txt","w")
-        saved_high_score = int(save.read()) # lit le fichier
-        if saved_high_score < current_score : # Variable passé dans la fonction
+        int(saved_high_score)
+        if saved_high_score < current_score : # RECUPERER LE SCORE DE LA PARTIE 
             str(current_score) 
             save.write(current_score)
         save.close()
