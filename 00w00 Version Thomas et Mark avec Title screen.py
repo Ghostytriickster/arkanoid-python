@@ -84,15 +84,80 @@ cpt_acc = 0
 cpt_game_over = 0
 game_over = 0
 cpt_game_over_ecran = 0
+
+
 untouched_1 = True
 untouched_2 = True
+untouched_3 = True
+untouched_4 = True
+untouched_5 = True
+untouched_6 = True
+untouched_7 = True
+untouched_8 = True
+untouched_9 = True
+untouched_10 = True
+untouched_11 = True
+untouched_12 = True
+untouched_13 = True
+untouched_14 = True
+untouched_15 = True
+untouched_16 = True
+untouched_17 = True
+untouched_18 = True
+untouched_19 = True
+untouched_20 = True
+untouched_21 = True
+untouched_22 = True
+untouched_23 = True
+untouched_24 = True
+untouched_25 = True
+untouched_26 = True
+untouched_27 = True
+untouched_28 = True
+untouched_29 = True
+untouched_30 = True
 
 
 
-y_brick_1 = 100
-brick_1 = pygame.Rect(0, 0, 960, y_brick_1)
-y_brick_2 = 200
-brick_2 = pygame.Rect(0, 0, 960, y_brick_2)
+
+
+y_brick_1 = 0
+x_brick_1 = 0
+brick_1 = pygame.Rect(x_brick_1, y_brick_1, 158, 50)
+y_brick_2 = 0
+x_brick_2 = 160
+brick_2 = pygame.Rect(x_brick_2, y_brick_2, 158, 50)
+y_brick_3 = 0
+x_brick_3 = 320
+brick_3 = pygame.Rect(x_brick_3, y_brick_3, 158, 50)
+y_brick_4 = 0
+x_brick_4 = 481
+brick_4 = pygame.Rect(x_brick_4, y_brick_4, 158, 50)
+y_brick_5 = 0
+x_brick_5 = 642
+brick_5 = pygame.Rect(x_brick_5, y_brick_5, 158, 50)
+y_brick_6 = 0
+x_brick_6 = 802
+brick_6 = pygame.Rect(x_brick_6, y_brick_6, 158, 50)
+y_brick_7 = 52
+x_brick_7 = 0
+brick_7 = pygame.Rect(x_brick_7, y_brick_7, 158, 50)
+y_brick_8 = 52
+x_brick_8 = 160
+brick_8 = pygame.Rect(x_brick_8, y_brick_8, 158, 50)
+y_brick_9 = 52
+x_brick_9 = 320
+brick_9 = pygame.Rect(x_brick_9, y_brick_9, 158, 50)
+y_brick_10 = 52
+x_brick_10 = 481
+brick_10 = pygame.Rect(x_brick_10, y_brick_10, 158, 50)
+y_brick_11 = 52
+x_brick_11 = 642
+brick_11 = pygame.Rect(x_brick_11, y_brick_11, 158, 50)
+y_brick_12 = 52
+x_brick_12 = 802
+brick_12 = pygame.Rect(x_brick_12, y_brick_12, 158, 50)
+
 
 start = 0
 
@@ -112,6 +177,27 @@ def not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window):
         pygame.draw.rect(window, blue, brick_1)
     if untouched_2 :
         pygame.draw.rect(window, blue, brick_2)
+    if untouched_3 :
+        pygame.draw.rect(window, blue, brick_3)
+    if untouched_4 :
+        pygame.draw.rect(window, blue, brick_4)
+    if untouched_5 :
+        pygame.draw.rect(window, blue, brick_5)
+    if untouched_6 :
+        pygame.draw.rect(window, blue, brick_6)
+    if untouched_7 :
+        pygame.draw.rect(window, blue, brick_7)
+    if untouched_8 :
+        pygame.draw.rect(window, blue, brick_8)
+    if untouched_9 :
+        pygame.draw.rect(window, blue, brick_9)
+    if untouched_10 :
+        pygame.draw.rect(window, blue, brick_10)
+    if untouched_11 :
+        pygame.draw.rect(window, blue, brick_11)
+    if untouched_12 :
+        pygame.draw.rect(window, blue, brick_12)
+        
     image_texte = police.render(str(cpt), 1, (0, 0, 0)) # Affiche un le nombre de rebond sur la barre
     window.blit(police.render(str(cpt), 1, (0, 0, 0)), (10, 10))
     pygame.display.update()
@@ -149,9 +235,31 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         
     if keys[pygame.K_LEFT] and x_barre>0: # Si la touche fleche de gauche est appuyer, on retire la valeur vel (La vitesse de la barre) pour la faire aller à gauche. x_barre est la coordonnée x de la barre
         x_barre -= vel
+        if y_ball >= height_window - (width_ball + height)\
+            and x_ball > (x_barre - width_ball + 3)\
+            and x_ball < x_barre + width - 3:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
+            
+                vy = - vy
+                vx = (random() * - 0.25 -0.25)
+                window.blit(image_texte, (10, 10))
         
     if keys[pygame.K_RIGHT] and x_barre<width_window -width: # Meme chose pour la fleche de droite
         x_barre += vel
+        if y_ball >= height_window - (width_ball + height)\
+            and x_ball > (x_barre - width_ball + 3)\
+            and x_ball < x_barre + width - 3:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
+            
+                vy = - vy
+                vx = random() * 0.25 +0.25
+                window.blit(image_texte, (10, 10))
+    elif not keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]:
+         if y_ball >= height_window - (width_ball + height)\
+            and x_ball > (x_barre - width_ball + 3)\
+            and x_ball < x_barre + width - 3:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
+            
+                vy = - vy
+                window.blit(image_texte, (10, 10))
+    
     if event.type == pygame.MOUSEBUTTONDOWN:
         print("right click")
         mouse_pos = pygame.mouse.get_pos()
@@ -191,13 +299,13 @@ while lock: # boucle pour maintenir la fenêtre ouverte
             vx = -vx
             
         
-        if y_ball >= height_window - (width_ball + height)\
-            and x_ball > (x_barre - width_ball + 3)\
-            and x_ball < x_barre + width - 3:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
-            
-            vy = - vy
-            cpt += 1
-            window.blit(image_texte, (10, 10))
+#         if y_ball >= height_window - (width_ball + height)\
+#             and x_ball > (x_barre - width_ball + 3)\
+#             and x_ball < x_barre + width - 3:  #Pour detecter les si il y a une collision avec la barre, verifie si la balle est à la hauteur de la barre, et si elle est dans la barre(gauche = left, droite = left + width de la barre) Sussy baka.
+#             
+#                 vy = - vy
+#                 cpt += 1
+#                 window.blit(image_texte, (10, 10))
         
         if height_window - (width_ball + height)<= y_ball:
             if abs(x_ball+width_ball-x_barre)<=4:
@@ -224,15 +332,82 @@ while lock: # boucle pour maintenir la fenêtre ouverte
         if not game_over:
             image_texte = not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window)
             window.fill(white) # Pour empecher que les sprites d'avant restent
-            if y_ball <= y_brick_1:
+            
+            if y_ball <= y_brick_1+50 and x_ball+20 >= x_brick_1 and x_ball <= x_brick_1 +135 + 20:
                 if untouched_1:
                     vy = -vy
+                    cpt += 1
                 untouched_1 = False
             
-            if y_ball <= y_brick_2:
+            if y_ball <= y_brick_2+50 and x_ball+20 >= x_brick_2 and x_ball+20 <= x_brick_2 +135 + 20:
                 if untouched_2:
                     vy = -vy
+                    cpt += 1
                 untouched_2 = False
+
+            
+            if y_ball <= y_brick_3+50 and x_ball+20 >= x_brick_3 and x_ball <= x_brick_3 +135 + 20:
+                if untouched_3:
+                    vy = -vy
+                    cpt += 1
+                untouched_3 = False
+
+                
+            if y_ball <= y_brick_4+50 and x_ball+20 >= x_brick_4 and x_ball <= x_brick_4 +135 + 20:
+                if untouched_4:
+                    vy = -vy
+                    cpt += 1
+                untouched_4 = False
+            
+            if y_ball <= y_brick_5+50 and x_ball+20 >= x_brick_5 and x_ball <= x_brick_5 +135 + 20:
+                if untouched_5:
+                    vy = -vy
+                    cpt += 1
+                untouched_5 = False
+
+            
+            if y_ball <= y_brick_6+50 and x_ball+20 >= x_brick_6 and x_ball <= x_brick_6 +135 + 20:
+                if untouched_6:
+                    vy = -vy
+                    cpt += 1
+                untouched_6 = False
+            
+            if y_ball <= y_brick_7+50 and x_ball+20 >= x_brick_7 and x_ball <= x_brick_7 +135 + 20:
+                if untouched_7:
+                    vy = -vy
+                    cpt += 1
+                untouched_7 = False
+            
+            if y_ball <= y_brick_8+50 and x_ball+20 >= x_brick_8 and x_ball+20 <= x_brick_8 +135 + 20:
+                if untouched_8:
+                    vy = -vy
+                    cpt += 1
+                untouched_8 = False
+
+            
+            if y_ball <= y_brick_9+50 and x_ball+20 >= x_brick_9 and x_ball <= x_brick_9 +135 + 20:
+                if untouched_9:
+                    vy = -vy
+                    cpt += 1
+                untouched_9 = False
+                
+            if y_ball <= y_brick_10+50 and x_ball+20 >= x_brick_10 and x_ball <= x_brick_10 +135 + 20:
+                if untouched_10:
+                    vy = -vy
+                    cpt += 1
+                untouched_10 = False
+            
+            if y_ball <= y_brick_11+50 and x_ball+20 >= x_brick_11 and x_ball <= x_brick_11 +135 + 20:
+                if untouched_11:
+                    vy = -vy
+                    cpt += 1
+                untouched_11 = False
+            
+            if y_ball <= y_brick_12+50 and x_ball+20 >= x_brick_12 and x_ball <= x_brick_12 +135 + 20:
+                if untouched_12:
+                    vy = -vy
+                    cpt += 1
+                untouched_12 = False
         
             pygame.draw.rect(window, (black), (x_barre, y_barre, width, height)) # Redessine la barre avec ces nouvelles coordonnées
             pygame.draw.ellipse(window, red, (int(x_ball), int(y_ball), width_ball, height_ball)) # Meme chose sur le cercle
@@ -242,6 +417,27 @@ while lock: # boucle pour maintenir la fenêtre ouverte
                 pygame.draw.rect(window, blue, brick_1)
             if untouched_2:
                 pygame.draw.rect(window, blue, brick_2)
+            if untouched_3 :
+                pygame.draw.rect(window, blue, brick_3)
+            if untouched_4 :
+                pygame.draw.rect(window, blue, brick_4)
+            if untouched_5 :
+                pygame.draw.rect(window, blue, brick_5)
+            if untouched_6 :
+                pygame.draw.rect(window, blue, brick_6)
+            if untouched_7 :
+                pygame.draw.rect(window, blue, brick_7)
+            if untouched_8 :
+                pygame.draw.rect(window, blue, brick_8)
+            if untouched_9 :
+                pygame.draw.rect(window, blue, brick_9)
+            if untouched_10 :
+                pygame.draw.rect(window, blue, brick_10)
+            if untouched_11 :
+                pygame.draw.rect(window, blue, brick_11)
+            if untouched_12 :
+                pygame.draw.rect(window, blue, brick_12)
+
             pygame.display.update()
         
         if game_over:
@@ -256,7 +452,6 @@ while lock: # boucle pour maintenir la fenêtre ouverte
             window.blit(image_texte, (400, 335))
             image_texte = police.render("Highscore "+ str(cpt) , 1, (255, 0, 0))
             window.blit(image_texte, (400, 455))
-            unouched_1, unouched_2 = True, True
             pygame.display.update()
             
                 
@@ -266,9 +461,12 @@ while lock: # boucle pour maintenir la fenêtre ouverte
                 x_barre, y_barre = (960/2) - (width/2), 640 - height
                 vy, vx, vel = 0.8, random() * 0.6 - 0.3, 0.6
                 cpt = 0
+                untouched_1, untouched_2, untouched_3, untouched_4, untouched_5, untouched_6 = True, True, True, True, True, True
+                untouched_7, untouched_8, untouched_9, untouched_10, untouched_11, untouched_12 = True, True, True, True, True, True
+                untouched_13, untouched_14, untouched_15, untouched_16, untouched_17, untouched_18 = True, True, True, True, True, True
+                untouched_19, untouched_20, untouched_21, untouched_22, untouched_23, untouched_24 = True, True, True, True, True, True
+                untouched_25, untouched_26, untouched_27, untouched_28, untouched_29, untouched_30 = True, True, True, True, True, True
                 pygame.display.update()
-            
-            print (untouched_1)
 
     
 pygame.quit()
