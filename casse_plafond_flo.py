@@ -11,18 +11,19 @@ blue = (0, 0, 255)
 green = (0, 255, 0)
 black = (0, 0, 0)
 white = (255, 255, 255)
+magenta = (50, 0, 50)
 
 width_window, height_window = 960, 640
 
 size = (width_window, height_window)
 window = pygame.display.set_mode(size)
-window.fill(white)
+window.fill(black)
 
 width, height = 160, 32
 x_barre, y_barre = (960/2) - (width/2), 640 - height
 vel = 0.6 # La vitesse de la barre
 r=pygame.Rect(x_barre, y_barre, width, height)
-pygame.draw.rect(window, black, r)
+pygame.draw.rect(window, blue, r)
 x_ball = 464
 y_ball = 288
 rayon = 20
@@ -33,27 +34,43 @@ game_over = False
 cpt = 0
 width_ball, height_ball = 32, 32
 
-y_brick = 100
-brick = pygame.Rect(0, 0, 960, y_brick)
+lst = []
+lst_1 = []
+c = 0
+y_brick = 50
 untouched = True
-    
+
 
 pygame.display.update()
 
+for i in range(6):
+    if len(lst) <= 5:
+        lst.append(c) # stocke les coordonées x des briques
+    c += 162
 
-def not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window): #Si le joue est toujours en cours
-    window.fill(white) # Pour empecher que les sprites d'avant restent
-    pygame.draw.rect(window, (black), (x_barre, y_barre, width, height)) # Redessine la barre avec ces nouvelles coordonnées
+for i in range(len(lst)):
+    brick = pygame.Rect(lst[i], 0, 160, y_brick)
+    pygame.draw.rect(window, blue, brick)
+
+def not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window, c): #Si le joue est toujours en cours
+    window.fill(black) # Pour empecher que les sprites d'avant restent
+    pygame.draw.rect(window, (blue), (x_barre, y_barre, width, height)) # Redessine la barre avec ces nouvelles coordonnées
     pygame.draw.ellipse(window, red, (int(x_ball), int(y_ball), width_ball, height_ball)) # Meme chose sur le cercle
     if untouched :
-        pygame.draw.rect(window, blue, brick)
-    image_texte = police.render(str(cpt), 1, (0, 0, 0)) # Affiche un le nombre de rebond sur la barre
-    window.blit(police.render(str(cpt), 1, (0, 0, 0)), (10, 10))
+        for i in range (len(lst)):
+            for j in range(len(lst_1)):
+                brick_1 = pygame.Rect(lst_1[j], 0, 160, y_brick)
+                pygame.draw.rect(window, blue, brick_1)
+            if x_ball >= lst[i-1] and x_ball <= lst[i] and y_ball <= y_brick:
+                lst_1.append(lst[i-1])
+
+    image_texte = police.render(str(cpt), 1, (255, 0, 0)) # Affiche un le nombre de rebond sur la barre
+    window.blit(police.render(str(cpt), 1, (255, 0, 0)), (10, 10))
     pygame.display.update()
     return image_texte
 
 def is_game_over(x_barre, y_barre, cpt, window): # Si game over
-    window.fill(white)
+    window.fill(black)
     police = pygame.font.SysFont("monospace", 80)
     image_texte = police.render ("GAME OVER", 1, (255, 0, 0))
     window.blit(image_texte, (272, 260))
@@ -103,12 +120,11 @@ while lock: # boucle pour maintenir la fenêtre ouverte
     x_ball = x_ball + vx
     
     if y_ball <= y_brick:
-        if untouched:
-            vy = -vy
-        untouched = False
+        vy = -vy
+        cpt += 10
     
     if not game_over:
-        image_texte = not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window)
+        image_texte = not_game_over(cpt, x_ball, y_ball, x_barre, y_barre, height, width, window, c)
         
     if game_over:
         x_barre, y_barre, image_texte = is_game_over(x_barre, y_barre, cpt, window)
