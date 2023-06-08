@@ -19,6 +19,12 @@ window.fill(fond)
 
 
 
+"""Séléction difficultée"""
+hard_mode = True
+difficulty = 1
+
+
+
 """Polices d'écriture"""
 font_size = 50
 font = pygame.font.SysFont('Times New Roman', font_size)
@@ -163,7 +169,12 @@ while solution == False:
     solution = generation_solution(valeurs_possibles)
 #print('\n', solution[0], '\n', solution[1], '\n', solution[2], '\n\n', solution[3], '\n', solution[4], '\n', solution[5], '\n\n', solution[6], '\n', solution[7], '\n', solution[8], '\n')
 
-sudoku = generation_sudoku(solution, 50)
+sudoku = generation_sudoku(solution, difficulty)
+hard_sudoku = [[[0 for _ in range(3)] for _ in range(3)] for _ in range(9)]
+for ligne in range(len(sudoku)):
+    for case in range(len(sudoku[ligne])):
+        for colonne in range(len(sudoku[ligne][case])):
+            hard_sudoku[ligne][case][colonne] = sudoku[ligne][case][colonne]
 #print('\n', sudoku[0], '\n', sudoku[1], '\n', sudoku[2], '\n\n', sudoku[3], '\n', sudoku[4], '\n', sudoku[5], '\n\n', sudoku[6], '\n', sudoku[7], '\n', sudoku[8], '\n')
 
 
@@ -253,15 +264,23 @@ def draw_rect(bord, c, choix):
 def verif(solution, choix, valeur):
     pygame.draw.rect(window, fond, (bord[choix[1]][choix[0]][0], (c+2, c+2)))
     generation_grille(d, fin, c, (0,0,0))
-    if valeur == solution[choix[1]][choix[0]//3][choix[0]%3]:
-        image_texte = font.render(str(valeur), 1, (0,140,0))
-        window.blit(image_texte, pos[choix[0]][choix[1]])
-        pygame.display.update()
-        sudoku[choix[1]][choix[0]//3][choix[0]%3] = valeur
+    if hard_mode == False:
+        if valeur == solution[choix[1]][choix[0]//3][choix[0]%3]:
+            image_texte = font.render(str(valeur), 1, (0,140,0))
+            window.blit(image_texte, pos[choix[0]][choix[1]])
+            pygame.display.update()
+            sudoku[choix[1]][choix[0]//3][choix[0]%3] = valeur
+        else:
+            image_texte = font.render(str(valeur), 1, (200,0,0))
+            window.blit(image_texte, pos[choix[0]][choix[1]])
+            pygame.display.update()
     else:
-        image_texte = font.render(str(valeur), 1, (200,0,0))
+        image_texte = font.render(str(valeur), 1, (0,100,255))
         window.blit(image_texte, pos[choix[0]][choix[1]])
         pygame.display.update()
+        if valeur == solution[choix[1]][choix[0]//3][choix[0]%3]:
+            sudoku[choix[1]][choix[0]//3][choix[0]%3] = valeur
+            
 
 
 
@@ -275,7 +294,7 @@ while lock: # boucle principale
         if event.type == QUIT: # fermeture de la fenêtre
             lock = False
         if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
+            if event.key == K_x:
                 lock = False
         
         if game == True:
@@ -285,11 +304,18 @@ while lock: # boucle principale
                 #print(mouse_pos)
                 choix = detect_case(bord, mouse_pos, c)
                 #print(choix)
-                if choix != False:
-                    if sudoku[choix[1]][choix[0]//3][choix[0]%3] == 0:
-                        draw_rect(bord, c, choix)
-                    else:
-                        choix = False
+                if hard_mode == False:
+                    if choix != False:
+                        if sudoku[choix[1]][choix[0]//3][choix[0]%3] == 0:
+                            draw_rect(bord, c, choix)
+                        else:
+                            choix = False 
+                else:
+                    if choix != False:
+                        if hard_sudoku[choix[1]][choix[0]//3][choix[0]%3] == 0:
+                            draw_rect(bord, c, choix)
+                        else:
+                            choix = False
                 pygame.display.update()
             
             if choix != False:
