@@ -20,8 +20,8 @@ window.fill(fond)
 
 
 """Séléction difficultée"""
-hard_mode = True
-difficulty = 30
+hard_mode = True # Les chiffres n'afficheront pas si ce sont les bonnes valeurs, lorsque True.
+difficulty = 30 # De 0 (tous les chiffres déjà placés) à 100 (aucun chiffre placé).
 
 
 
