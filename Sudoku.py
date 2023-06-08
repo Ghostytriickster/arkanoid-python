@@ -21,7 +21,7 @@ window.fill(fond)
 
 """Séléction difficultée"""
 hard_mode = True
-difficulty = 1
+difficulty = 30
 
 
 
